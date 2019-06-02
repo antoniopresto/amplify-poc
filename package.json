@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "",
   "dependencies": {
-    "aws-amplify": "^1.1.28"
+    "aws-amplify": "^1.1.28",
+    "prettier": "^1.17.1"
   },
   "scripts": {
     "build": "echo TODO build",

@@ -5,5 +5,27 @@ type Customer @model {
 }
 
 type Mutation {
-  addEntry(id: Int, email: String, createdAt: String): String @function(name: "addEntry-${env}")
+  addEntry(id: Int, email: String, createdAt: String): String
+    @function(name: "addEntry-${env}")
+}
+
+type Item
+  @model
+  @key(fields: ["orderId", "status", "createdAt"])
+  @key(
+    name: "ByStatusAndCreatedAt"
+    fields: ["status", "createdAt"]
+    queryField: "itemsByStatusAndCreatedAt"
+  ) {
+  orderId: ID!
+  status: Status!
+  createdAt: AWSDateTime!
+  name: String!
+}
+
+enum Status {
+  DELIVERED
+  IN_TRANSIT
+  PENDING
+  UNKNOWN
 }

@@ -1,40 +1,26 @@
-/* Amplify Params - DO NOT EDIT
-You can access the following resource attributes as environment variables from your Lambda function
-var environment = process.env.ENV
-var region = process.env.REGION
-var storageTeststorageName = process.env.STORAGE_TESTSTORAGE_NAME
-var storageTeststorageArn = process.env.STORAGE_TESTSTORAGE_ARN
+const AWS = require("aws-sdk");
+const region = process.env.REGION;
+const storageTeststorageName = process.env.STORAGE_TESTSTORAGE_NAME;
+const ddb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
+const ddb_table_name = storageTeststorageName;
 
-Amplify Params - DO NOT EDIT */
+AWS.config.update({ region: region });
 
-var AWS = require('aws-sdk');
-var region = process.env.REGION
-var storageTeststorageName = process.env.STORAGE_TESTSTORAGE_NAME
-AWS.config.update({region: region});
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-var ddb_table_name = storageTeststorageName
-var ddb_primary_key = 'id';
+exports.handler = function(event, context) {
+  console.log("len: " + Object.keys(event).length, event.arguments);
+  if (Object.keys(event).length < 0) return;
 
-function write(params, context){
-  ddb.putItem(params, function(err, data) {
-    if (err) {
-      console.log("Error", err);
-    } else {
-      console.log("Success", data);
+  ddb.putItem(
+    {
+      TableName: ddb_table_name,
+      Item: AWS.DynamoDB.Converter.input(event.arguments)
+    },
+    function(err, data) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        console.log("Success", data);
+      }
     }
-  });
-}
-
-
-exports.handler = function (event, context) { //eslint-disable-line
-
-  var params = {
-    TableName: ddb_table_name,
-    AWS.DynamoDB.Converter.input(event.arguments)
-  };
-
-  console.log('len: ' + Object.keys(event).length)
-  if (Object.keys(event).length > 0) {
-    write(params, context);
-  }
+  );
 };
