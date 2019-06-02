@@ -29,3 +29,30 @@ export const deleteCustomer = `mutation DeleteCustomer($input: DeleteCustomerInp
   }
 }
 `;
+export const createItem = `mutation CreateItem($input: CreateItemInput!) {
+  createItem(input: $input) {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;
+export const updateItem = `mutation UpdateItem($input: UpdateItemInput!) {
+  updateItem(input: $input) {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;
+export const deleteItem = `mutation DeleteItem($input: DeleteItemInput!) {
+  deleteItem(input: $input) {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;

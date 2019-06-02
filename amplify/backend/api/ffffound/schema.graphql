@@ -30,18 +30,3 @@ enum Status {
   UNKNOWN
 }
 
-## custom func resolver
-type Query {
-  posts: [Post] @function(name: "customGqlResolverFunction")
-}
-
-type Post {
-  id: ID!
-  title: String!
-  comments: [Comment] @function(name: "customGqlResolverFunction")
-}
-
-type Comment {
-  postId: ID!
-  content: String
-}

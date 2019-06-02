@@ -25,3 +25,30 @@ export const onDeleteCustomer = `subscription OnDeleteCustomer {
   }
 }
 `;
+export const onCreateItem = `subscription OnCreateItem {
+  onCreateItem {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;
+export const onUpdateItem = `subscription OnUpdateItem {
+  onUpdateItem {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;
+export const onDeleteItem = `subscription OnDeleteItem {
+  onDeleteItem {
+    orderId
+    status
+    createdAt
+    name
+  }
+}
+`;
