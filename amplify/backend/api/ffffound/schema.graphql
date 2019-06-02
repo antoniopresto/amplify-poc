@@ -1,32 +1,64 @@
-type Customer @model {
-  id: ID!
-  name: String!
-  createdAt: String
+type Query {
+  me: User @function(name: "myGraphQLCustomLambda-${env}")
+  echo(msg: String): String @function(name: "echo-${env}")
 }
 
-type Mutation {
-  addEntry(id: Int, email: String, createdAt: String): String
-    @function(name: "addEntry-${env}")
+# These types derived from https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
+type User {
+  Username: String!
+  UserAttributes: [Value]
+  UserCreateDate: String
+  UserLastModifiedDate: String
+  Enabled: Boolean
+  UserStatus: UserStatus
+  MFAOptions: [MFAOption]
+  PreferredMfaSetting: String
+  UserMFASettingList: String
 }
 
-type Item
-  @model
-  @key(fields: ["orderId", "status", "createdAt"])
-  @key(
-    name: "ByStatusAndCreatedAt"
-    fields: ["status", "createdAt"]
-    queryField: "itemsByStatusAndCreatedAt"
-  ) {
-  orderId: ID!
-  status: Status!
-  createdAt: AWSDateTime!
-  name: String!
+type Value {
+  Name: String!
+  Value: String
 }
 
-enum Status {
-  DELIVERED
-  IN_TRANSIT
-  PENDING
+type MFAOption {
+  DeliveryMedium: String
+  AttributeName: String
+}
+
+enum UserStatus {
+  UNCONFIRMED
+  CONFIRMED
+  ARCHIVED
+  COMPROMISED
   UNKNOWN
+  RESET_REQUIRED
+  FORCE_CHANGE_PASSWORD
 }
 
+#type Customer @model {
+#  id: ID!
+#  name: String!
+#  createdAt: String
+#}
+#
+#type Item
+#  @model
+#  @key(fields: ["orderId", "status", "createdAt"])
+#  @key(
+#    name: "ByStatusAndCreatedAt"
+#    fields: ["status", "createdAt"]
+#    queryField: "itemsByStatusAndCreatedAt"
+#  ) {
+#  orderId: ID!
+#  status: Status!
+#  createdAt: AWSDateTime!
+#  name: String!
+#}
+#
+#enum Status {
+#  DELIVERED
+#  IN_TRANSIT
+#  PENDING
+#  UNKNOWN
+#}

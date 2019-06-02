@@ -8,9 +8,65 @@ var authFfffound7f1a151cUserPoolId = process.env.AUTH_FFFFOUND7F1A151C_USERPOOLI
 
 Amplify Params - DO NOT EDIT */
 
-exports.handler = function (event, context) { //eslint-disable-line
-  console.log(`value1 = ${event.key1}`);
-  console.log(`value2 = ${event.key2}`);
-  console.log(`value3 = ${event.key3}`);
-  context.done(null, 'Hello World'); // SUCCESS with message
+const { CognitoIdentityServiceProvider } = require("aws-sdk");
+const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
+
+/**
+ * Get user pool information from environment variables.
+ */
+const COGNITO_USERPOOL_ID = process.env.AUTH_FFFFOUND7F1A151C_USERPOOLID;
+if (!COGNITO_USERPOOL_ID) {
+  throw new Error(
+    `Function requires environment variable: 'COGNITO_USERPOOL_ID'`
+  );
+}
+const COGNITO_USERNAME_CLAIM_KEY = "cognito:username";
+
+/**
+ * Using this as the entry point, you can use a single function to handle many resolvers.
+ */
+const resolvers = {
+  Query: {
+    echo: ctx => {
+      return ctx.arguments.msg;
+    },
+    me: async ctx => {
+      var params = {
+        UserPoolId: COGNITO_USERPOOL_ID /* required */,
+        Username: ctx.identity.claims[COGNITO_USERNAME_CLAIM_KEY] /* required */
+      };
+      try {
+        // Read more: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
+        return await cognitoIdentityServiceProvider
+          .adminGetUser(params)
+          .promise();
+      } catch (e) {
+        console.log(e)
+        throw new Error(`NOT FOUND`);
+      }
+    }
+  }
+};
+
+// event
+// {
+//   "typeName": "Query", /* Filled dynamically based on @function usage location */
+//   "fieldName": "me", /* Filled dynamically based on @function usage location */
+//   "arguments": { /* GraphQL field arguments via $ctx.arguments */ },
+//   "identity": { /* AppSync identity object via $ctx.identity */ },
+//   "source": { /* The object returned by the parent resolver. E.G. if resolving field 'Post.comments', the source is the Post object. */ },
+//   "request": { /* AppSync request object. Contains things like headers. */ },
+//   "prev": { /* If using the built-in pipeline resolver support, this contains the object returned by the previous function. */ },
+// }
+exports.handler = async event => {
+  console.log("ENV::::", process.env);
+
+  const typeHandler = resolvers[event.typeName];
+  if (typeHandler) {
+    const resolver = typeHandler[event.fieldName];
+    if (resolver) {
+      return await resolver(event);
+    }
+  }
+  throw new Error("Resolver not found.");
 };

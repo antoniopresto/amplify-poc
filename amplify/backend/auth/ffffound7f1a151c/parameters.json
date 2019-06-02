@@ -25,7 +25,6 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "name",
         "phone_number"
     ],
     "userpoolClientName": "ffffou7f1a151c_app_client",

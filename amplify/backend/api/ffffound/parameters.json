@@ -1,4 +1,10 @@
 {
     "AppSyncApiName": "ffffound",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST"
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authffffound7f1a151c",
+            "Outputs.UserPoolId"
+        ]
+    }
 }
