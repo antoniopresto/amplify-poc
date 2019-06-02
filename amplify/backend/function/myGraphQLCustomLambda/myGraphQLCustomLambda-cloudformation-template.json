@@ -84,7 +84,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "ffffound-dev-20190602151311-deployment",
-					"S3Key": "amplify-builds/myGraphQLCustomLambda-1559513617-latest-build.zip"
+					"S3Key": "amplify-builds/myGraphQLCustomLambda-1559513800-latest-build.zip"
 				}
 			}
 		},
