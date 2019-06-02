@@ -50,6 +50,28 @@
 					]
 				}
 			]
+		},
+		"myGraphQLCustomLambda": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "ffffound",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "auth",
+					"resourceName": "ffffound7f1a151c",
+					"attributes": [
+						"UserPoolId"
+					]
+				}
+			]
 		}
 	},
 	"api": {
