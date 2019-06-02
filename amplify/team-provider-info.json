@@ -9,6 +9,11 @@
             "UnauthRoleName": "ffffound-dev-20190602151311-unauthRole",
             "StackName": "ffffound-dev-20190602151311",
             "StackId": "arn:aws:cloudformation:us-east-1:520397233430:stack/ffffound-dev-20190602151311/15d0b780-8562-11e9-a3b9-0e162d0e1748"
+        },
+        "categories": {
+            "auth": {
+                "ffffound7f1a151c": {}
+            }
         }
     }
 }
