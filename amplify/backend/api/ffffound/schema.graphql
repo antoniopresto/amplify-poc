@@ -1,0 +1,9 @@
+type Customer @model {
+  id: ID!
+  name: String!
+  createdAt: String
+}
+
+type Mutation {
+  addEntry(id: Int, email: String, createdAt: String): String @function(name: "addEntry-${env}")
+}
