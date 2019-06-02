@@ -1,0 +1,5 @@
+{
+    "tableName": "ffffound",
+    "partitionKeyName": "id",
+    "partitionKeyType": "N"
+}

@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "storage": {
+            "ffffound": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
