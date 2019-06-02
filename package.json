@@ -1,8 +1,8 @@
 {
-  "name": "fffound",
+  "name": "ffffound",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "",
   "dependencies": {
     "aws-amplify": "^1.1.28"
   }
